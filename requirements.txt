@@ -1,0 +1,11 @@
+pandas
+numpy
+scipy
+missingno
+seaborn
+scapy
+scikitplot
+bs4
+networkx
+boto3
+matplotlib
