@@ -30,7 +30,7 @@ jobs:
           git config --local user.email "lucasrodriguez.08@outlook.com"
           git config --local user.name "GitHub Action Hello"
           git add ./output
-          git commit -m "Add changes"
+          git commit -m "Workflow update: $(date)"
       - name: Push changes # push the output folder to your repo
         uses: ad-m/github-push-action@master
         with:
