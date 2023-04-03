@@ -1,6 +1,12 @@
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
+
+# SCHEDULE WITH CRON
+# Check: https://jasonet.co/posts/scheduled-actions/
+# Check: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+# Check: https://github.com/actions/setup-python/blob/main/.github/workflows/test-python.yml
+
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
@@ -13,7 +19,7 @@ jobs:
           date
       - name: Modify value # Tried to modify the files based on existing testfile.txt
         run: |
-          echo 'Hello' >> testfile.txt
+          echo F_$(date) >> testfile.txt
           echo "Writing file"
       - name: move to dir # Move the generated files into output folder
         run: |
