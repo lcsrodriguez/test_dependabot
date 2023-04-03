@@ -11,7 +11,7 @@ jobs:
         run: echo "salut"
       - name: Modify value # Tried to modify the files based on existing testfile.txt
         run: |
-          echo 'Hello\n' > testfile.txt
+          echo 'Hello' >> testfile.txt
           echo "Writing file"
       - name: move to dir # Move the generated files into output folder
         run: |
