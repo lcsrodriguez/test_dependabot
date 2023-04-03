@@ -9,3 +9,5 @@ import bs4
 import networkx
 import boto3
 import matplotlib.pyplot as plt
+
+print("salut")
