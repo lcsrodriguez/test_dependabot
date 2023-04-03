@@ -8,7 +8,9 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
       - name: Test echo
-        run: echo "salut"
+        run: |
+          echo "salut"
+          date
       - name: Modify value # Tried to modify the files based on existing testfile.txt
         run: |
           echo 'Hello' >> testfile.txt
