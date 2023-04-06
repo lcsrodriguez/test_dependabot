@@ -22,6 +22,7 @@ jobs:
         with:
           python-version: "3.10"
           cache: "pip" # caching pip dependencies
-      - run: pip install pylint
       - run: echo "Python installed"
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - run: pip install pylint
+      - run: echo "Pyling installed"
+      - run: pyreverse -o png src/ --output-directory uml/ -Ab
