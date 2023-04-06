@@ -14,15 +14,10 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - name: Modify value # Tried to modify the files based on existing testfile.txt
-        run: |
-          echo F_$(date) >> testfile.txt
-          echo "Writing file"
       - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
           cache: "pip" # caching pip dependencies
-      - run: echo "Python installed"
       - run: sudo apt-get install -y graphviz
       - run: pip install pylint
       - run: echo "Pyling installed"
