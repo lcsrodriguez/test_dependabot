@@ -1,0 +1,27 @@
+name: UML Workflow
+run-name: ${{ github.actor }} UML
+
+on: [push]
+
+# SCHEDULE WITH CRON
+# Check: https://jasonet.co/posts/scheduled-actions/
+# Check: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+# Check: https://github.com/actions/setup-python/blob/main/.github/workflows/test-python.yml
+
+jobs:
+  UML:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Modify value # Tried to modify the files based on existing testfile.txt
+        run: |
+          echo F_$(date) >> testfile.txt
+          echo "Writing file"
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+          cache: "pip" # caching pip dependencies
+      - run: pip install pylint
+      - run: echo "Python installed"
+      - run: echo "🍏 This job's status is ${{ job.status }}."
