@@ -8,6 +8,9 @@ on: [push]
 # Check: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 # Check: https://github.com/actions/setup-python/blob/main/.github/workflows/test-python.yml
 
+env:
+  INIT_FILE: src/__init__.py
+  
 jobs:
   UML:
     runs-on: ubuntu-latest
@@ -21,7 +24,10 @@ jobs:
       - run: sudo apt-get install -y graphviz
       - run: pip install pylint
       - run: echo "Pyling installed"
+      - run: echo "salut" >> src/__init__.py
+      - run: echo "Building the UML graphs"
       - run: pyreverse -o png src/ --output-directory uml/ -Ab
+      - run: rm $INIT_FILE
       - name: Commit files # commit the output folder
         run: |
           git config --local user.email "lucasrodriguez.08@outlook.com"
