@@ -60,6 +60,7 @@ jobs:
           git add ./uml
           git commit -m "UML workflow update: $(date)"
       - name: Pushing
+        if: steps.uml-files.outputs.any_changed == 'true'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.KEY }}
