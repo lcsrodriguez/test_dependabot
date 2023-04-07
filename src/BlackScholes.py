@@ -48,7 +48,7 @@ class BlackScholes(EquityModel):
         """
         return f"Black-Scholes model {self.get_parameter_string(onLaTeX=False)}"
     
-    def __str__(self, test, a, b) -> str:
+    def __str__(self) -> str:
         r"""
         Gentle string representation
 

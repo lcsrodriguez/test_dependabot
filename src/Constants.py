@@ -1,8 +1,5 @@
 from enum import Enum
 
-
-
-
 class Constants:
     r"""
     Static class for constants and global variables

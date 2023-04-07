@@ -3,8 +3,6 @@ from .Utils import *
 from .Constants import *
 import numpy as np
 
-
-
 class CIR(RatesModel):
     r""" Class representing the Cox-Ingersoll-Ross (CIR) model
     
@@ -21,7 +19,7 @@ class CIR(RatesModel):
     # Name of the model
     MODEL_NAME = "CIR"
     
-    def __init__(self, z0: float, kappa: float, theta: float, sigma: float) -> None:
+    def __init__(self, r0: float, kappa: float, theta: float, sigma: float) -> None:
         r"""Default constructor in order to verify the validity of the parameters, and store them
 
         Args:

@@ -8,7 +8,7 @@ class Pricer:
     pass
 
     @staticmethod
-    def CALL_PAYOFF(x: float, K: float) -> Union[dict, list]:
+    def CALL_PAYOFF(x: float, K: float) -> float:
         r"""Payoff function for a call option
 
         $$\Pi^{\text{CALL}} := (X - K)_+$$
@@ -82,7 +82,7 @@ class Pricer:
         S = results
         return S
 
-    def simulate_samples(self, B_ALPHA_BETA: int = Constants.MC_DEFAULT_ITERS, parallel: bool = False, q: Any = None) -> pandas.DataFrame: # trajectories to be stored (for caching)
+    def simulate_samples(self, N_MC: int = Constants.MC_DEFAULT_ITERS, parallel: bool = False, q: Any = None) -> pandas.DataFrame: # trajectories to be stored (for caching)
         r"""Function which simulates prices trajectories
 
         Args:

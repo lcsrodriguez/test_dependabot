@@ -19,7 +19,7 @@ class Vasicek(RatesModel):
     # Name of the model
     MODEL_NAME = "VASICEK"
     
-    def __init__(self, v0: float, kappa: float, theta: float, eta: float) -> None:
+    def __init__(self, r0: float, kappa: float, theta: float, eta: float) -> None:
         r"""Default constructor in order to verify the validity of the parameters, and store them
 
         Args:

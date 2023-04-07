@@ -47,7 +47,7 @@ class Utils:
         }
     
     @staticmethod
-    def get_dict_values(x: dict, a: float) -> Any:
+    def get_dict_values(x: dict) -> Any:
         r"""Function taking a random dictionary and unpacking it by returning its values
 
         Args:

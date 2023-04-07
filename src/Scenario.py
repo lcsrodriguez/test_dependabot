@@ -6,7 +6,7 @@ class Scenario:
     """
     
     @staticmethod
-    def scenario_1(t: float, a: int) -> Any:
+    def scenario_1(t: float) -> Any:
         """Function defining the scenario 1
 
         Args:
