@@ -3,6 +3,8 @@ from .Utils import *
 from .Constants import *
 import numpy as np
 
+
+
 class CIR(RatesModel):
     r""" Class representing the Cox-Ingersoll-Ross (CIR) model
     
