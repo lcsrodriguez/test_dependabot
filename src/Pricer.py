@@ -8,7 +8,7 @@ class Pricer:
     pass
 
     @staticmethod
-    def CALL_PAYOFF(x: float, K: float) -> float:
+    def CALL_PAYOFF(x: float, K: float) -> Union[dict, list]:
         r"""Payoff function for a call option
 
         $$\Pi^{\text{CALL}} := (X - K)_+$$
