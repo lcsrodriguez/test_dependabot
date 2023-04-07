@@ -46,18 +46,15 @@ jobs:
           sudo apt-get install -y graphviz
           pip install pylint
 
-      # Creating temporary file
-      - name: Creating temporary file
-        run: |
-          echo "@" >> $INIT_FILE
-
       # Creating UML diagrams
       - name: Creating UML diagrams
-        run: pyreverse -o png src/ --output-directory uml/ -Ab
-
-      # Removing temporary file
-      - name: Removing temporary file
-        run: rm $INIT_FILE
+        run: |
+          echo "Creating temporary file"
+          echo "@" >> $INIT_FILE
+          echo "Creating UML diagrams"
+          pyreverse -o png src/ --output-directory uml/ -Ab
+          echo "Removing temporary file"
+          rm $INIT_FILE
 
       # Commiting the file changes
       - name: Commiting the changes
