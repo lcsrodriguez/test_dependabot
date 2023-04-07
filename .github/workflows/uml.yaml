@@ -14,8 +14,7 @@ on:
 # Check: https://github.com/actions/setup-python/blob/main/.github/workflows/test-python.yml
 
 env:
-  SRC_FOLDER: src
-  INIT_FILE: $SRC_FOLDER/__init__.py
+  INIT_FILE: src/__init__.py
 
 jobs:
   UML:
@@ -30,7 +29,7 @@ jobs:
         id: changed-files-specific
         uses: tj-actions/changed-files@v35
         with:
-          files: $SRC_FOLDER/*.py
+          files: src/*.py
 
       # Installing Python 3.10
       - name: Installing Python
@@ -54,7 +53,7 @@ jobs:
 
       # Creating UML diagrams
       - name: Creating UML diagrams
-        run: pyreverse -o png $SRC_FOLDER/ --output-directory uml/ -Ab
+        run: pyreverse -o png src/ --output-directory uml/ -Ab
 
       # Removing temporary file
       - name: Removing temporary file
