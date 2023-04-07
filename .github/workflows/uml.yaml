@@ -53,7 +53,7 @@ jobs:
           git config --local user.email "lucasrodriguez.08@outlook.com"
           git config --local user.name "GitHub Action Hello"
           git add ./uml
-          git commit -m "UML workflow update: $(date)"
+          git commit --allow-empty -m "UML workflow update: $(date)"
       - name: Pushing
         if: steps.changed-files-specific.outputs.any_changed == 'true'
         uses: ad-m/github-push-action@master
