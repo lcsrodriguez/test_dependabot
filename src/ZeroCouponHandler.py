@@ -15,6 +15,12 @@ class ZeroCouponHandler:
         Reading the data from the Excel file in the `assets/data` sub-folder
         """
         return NotImplemented
+    
+    def get_data_2(a: int) -> None:
+        r"""
+        Reading the data from the Excel file in the `assets/data` sub-folder
+        """
+        return NotImplemented
 
     def compute_theta_values() -> None:
         r"""
