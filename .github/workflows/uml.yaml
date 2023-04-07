@@ -47,20 +47,15 @@ jobs:
           pyreverse -o png src/ --output-directory uml/ -Ab
           rm $INIT_FILE
           
-      - name: Get changed files in the docs folder
-        id: uml-files
-        uses: tj-actions/changed-files@v35
-        with:
-          files: uml/*.png
       - name: Commiting 
-        if: steps.uml-files.outputs.any_changed == 'true'
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
         run: |
           git config --local user.email "lucasrodriguez.08@outlook.com"
           git config --local user.name "GitHub Action Hello"
           git add ./uml
           git commit -m "UML workflow update: $(date)"
       - name: Pushing
-        if: steps.uml-files.outputs.any_changed == 'true'
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.KEY }}
