@@ -30,10 +30,15 @@ jobs:
         run: |
           echo "One or more files in the docs folder has changed."
           echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
-          uses: actions/setup-python@v4
-          with:
-            python-version: "3.10"
-            cache: "pip" # caching pip dependencies
+      - name: Installing Python
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        uses: actions/setup-python@v4
+        with:
+           python-version: "3.10"
+           cache: "pip" # caching pip dependencies
+      - name: Installing Python + dependencies
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        run: |
           sudo apt-get install -y graphviz
           pip install pylint
           echo "Pyling installed"
@@ -45,7 +50,8 @@ jobs:
           git config --local user.name "GitHub Action Hello"
           git add ./uml
           git commit -m "UML workflow update: $(date)"
-          uses: ad-m/github-push-action@master
-          with:
-            github_token: ${{ secrets.KEY }}
-            force: true
+      - name: Pushing
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.KEY }}
+          force: true
