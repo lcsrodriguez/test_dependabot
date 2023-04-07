@@ -1,7 +1,12 @@
 name: UML Workflow
-run-name: ${{ github.actor }} UML
+run-name: UML Workflow
 
-on: [push]
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - "src/**"
 
 # SCHEDULE WITH CRON
 # Check: https://jasonet.co/posts/scheduled-actions/
@@ -9,52 +14,63 @@ on: [push]
 # Check: https://github.com/actions/setup-python/blob/main/.github/workflows/test-python.yml
 
 env:
-  INIT_FILE: src/__init__.py
-  
+  SRC_FOLDER: src
+  INIT_FILE: $SRC_FOLDER/__init__.py
+
 jobs:
   UML:
     runs-on: ubuntu-latest
     steps:
+      # Checking repository content
       - name: Check out repository code
         uses: actions/checkout@v3
-        
-      # Checking if we have to run PyReverse
+
+      # Checking any file changes
       - name: Get changed files in the docs folder
         id: changed-files-specific
         uses: tj-actions/changed-files@v35
         with:
-          files: src/*.py  # Alternatively using: `docs/**` or `docs`
+          files: $SRC_FOLDER/*.py
 
-      - name: Run step if any file(s) in the docs folder change
-        if: steps.changed-files-specific.outputs.any_changed == 'true'
-        run: |
-          echo "One or more files in the docs folder has changed."
-          echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
+      # Installing Python 3.10
       - name: Installing Python
         if: steps.changed-files-specific.outputs.any_changed == 'true'
         uses: actions/setup-python@v4
         with:
-           python-version: "3.10"
-           cache: "pip" # caching pip dependencies
+          python-version: "3.10"
+          cache: "pip" # Caching pip dependencies
+
+      # Installing Graphviz + PyLint
       - name: Installing Python + dependencies
         if: steps.changed-files-specific.outputs.any_changed == 'true'
         run: |
           sudo apt-get install -y graphviz
           pip install pylint
-          echo "Pyling installed"
-          echo "salut" >> src/__init__.py
-          echo "Building the UML graphs"
-          pyreverse -o png src/ --output-directory uml/ -Ab
-          rm $INIT_FILE
-          
-      - name: Commiting 
+
+      # Creating temporary file
+      - name: Creating temporary file
+        run: |
+          echo "@" >> $INIT_FILE
+
+      # Creating UML diagrams
+      - name: Creating UML diagrams
+        run: pyreverse -o png $SRC_FOLDER/ --output-directory uml/ -Ab
+
+      # Removing temporary file
+      - name: Removing temporary file
+        run: rm $INIT_FILE
+
+      # Commiting the file changes
+      - name: Commiting the changes
         if: steps.changed-files-specific.outputs.any_changed == 'true'
         run: |
           git config --local user.email "lucasrodriguez.08@outlook.com"
           git config --local user.name "GitHub Action Hello"
           git add ./uml
           git commit --allow-empty -m "UML workflow update: $(date)"
-      - name: Pushing
+
+      # Pushing to the main branch
+      - name: Pushing to the main branch
         if: steps.changed-files-specific.outputs.any_changed == 'true'
         uses: ad-m/github-push-action@master
         with:
