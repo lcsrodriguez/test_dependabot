@@ -6,7 +6,7 @@ on:
     branches:
       - "main"
     paths:
-      - "src/**"
+      - "src/*.py"
 
 # SCHEDULE WITH CRON
 # Check: https://jasonet.co/posts/scheduled-actions/
@@ -50,12 +50,12 @@ jobs:
       - name: Creating UML diagrams
         run: |
           echo "Creating temporary file"
-          echo "@" >> $INIT_FILE
+          echo "Hello world" >> src/__init__.py
           echo "Creating UML diagrams"
           pyreverse -o png src/ --output-directory uml/ -Ab
           echo "Removing temporary file"
-          rm $INIT_FILE
-
+          rm $INIT_FILE          
+          
       # Commiting the file changes
       - name: Commiting the changes
         if: steps.changed-files-specific.outputs.any_changed == 'true'
