@@ -17,25 +17,35 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+        
+      # Checking if we have to run PyReverse
+      - name: Get changed files in the docs folder
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v35
         with:
-          python-version: "3.10"
-          cache: "pip" # caching pip dependencies
-      - run: sudo apt-get install -y graphviz
-      - run: pip install pylint
-      - run: echo "Pyling installed"
-      - run: echo "salut" >> src/__init__.py
-      - run: echo "Building the UML graphs"
-      - run: pyreverse -o png src/ --output-directory uml/ -Ab
-      - run: rm $INIT_FILE
-      - name: Commit files # commit the output folder
+          files: src/*.py  # Alternatively using: `docs/**` or `docs`
+
+      - name: Run step if any file(s) in the docs folder change
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
         run: |
+          echo "One or more files in the docs folder has changed."
+          echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
+          uses: actions/setup-python@v4
+          with:
+            python-version: "3.10"
+            cache: "pip" # caching pip dependencies
+          sudo apt-get install -y graphviz
+          pip install pylint
+          echo "Pyling installed"
+          echo "salut" >> src/__init__.py
+          echo "Building the UML graphs"
+          pyreverse -o png src/ --output-directory uml/ -Ab
+          rm $INIT_FILE
           git config --local user.email "lucasrodriguez.08@outlook.com"
           git config --local user.name "GitHub Action Hello"
           git add ./uml
           git commit -m "UML workflow update: $(date)"
-      - name: Push changes # push the output folder to your repo
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.KEY }}
-          force: true
+          uses: ad-m/github-push-action@master
+          with:
+            github_token: ${{ secrets.KEY }}
+            force: true
