@@ -29,7 +29,7 @@ class Heston(EquityModel):
     """
     
     # Name of the model
-    MODEL_NAME = "HESTON"
+    MODEL_NAME = "HESTON_MODEL"
     
     def __init__(self, 
                  S0: float, 
