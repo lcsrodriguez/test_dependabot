@@ -21,7 +21,7 @@ class CIR(RatesModel):
     # Name of the model
     MODEL_NAME = "CIR"
     
-    def __init__(self, h0: float, kappa: float, theta: float, sigma: float) -> None:
+    def __init__(self, z0: float, kappa: float, theta: float, sigma: float) -> None:
         r"""Default constructor in order to verify the validity of the parameters, and store them
 
         Args:
