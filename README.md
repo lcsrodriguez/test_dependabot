@@ -6,3 +6,6 @@
 
 - Testing Dependabot
 - Testing workflows (UML DIAGRAM)
+
+## License
+
